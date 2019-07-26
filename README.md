@@ -10,3 +10,16 @@ z 桌面
 #### nvm与node安装
 [教程](https://xiedaimala.com/tasks/09e02796-29a6-4e4b-90f1-122d4dcdcacc/text_tutorials/7484ad66-f446-4c22-af5d-7ece2f731303)
 
+#### 搭建http服务器
+* [code]()
+* url的组成:
+```
+Schema://host:port/path?query#hash
+```
+比如
+```
+address://putong.shanghai.china/jinkeroad/1111'
+```
+* 为什么url通常看不见port
+> 存在默认端口(80,443)
+
