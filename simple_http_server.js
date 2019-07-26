@@ -86,7 +86,7 @@ server.on('request',(req,res)=>{
 });
 */
 
-// 解析HTTP请求体
+// 解析HTTP请求体，详见https://xiedaimala.com/tasks/9b86c788-9057-4146-8119-c009ffe2f90f/video_tutorials/fcc58417-b40e-4fde-9ea3-5cab8fe3a954
 
 // 输入:localhost:8000/user?quan=3&people=china
 server.on('request',(req,res)=>{
@@ -105,10 +105,10 @@ server.on('request',(req,res)=>{
                     res.end(JSON.stringify(users))
                     break;
                 case 'POST':
-
-                    const contentType=req.headers['content-type']
                   
-                    // 指定请求体内容格式
+                    // 指定请求体内容格式,注意格式是在headers中设置的
+                    const contentType=req.headers['content-type']
+
                     if(contentType!=='application/json'){
                         res.statusCode=400;
                         res.end('error');
