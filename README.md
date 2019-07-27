@@ -11,7 +11,7 @@ z 桌面
 [教程](https://xiedaimala.com/tasks/09e02796-29a6-4e4b-90f1-122d4dcdcacc/text_tutorials/7484ad66-f446-4c22-af5d-7ece2f731303)
 
 #### 搭建http服务器
-* [code]()
+* [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/simple_http_server.js)
 * url的组成:
 ```
 Schema://host:port/path?query#hash
@@ -88,7 +88,11 @@ GET /user HTTP/1.1
 ```
 npm i -g express-generator
 ```
-* 运行
+* 生成项目what_i_love
 ```
 express --view=ejs what_i_love
+```
+* 启动
+```
+node bin/www
 ```
