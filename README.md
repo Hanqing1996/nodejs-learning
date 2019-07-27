@@ -111,7 +111,7 @@ node index.js
 ```
 
 #### 中间件
-[code]()
+[code](https://github.com/Hanqing1996/nodejs-learning/blob/master/express_demo/index.js)
 * 定义
 对请求流程的封装
 * 特点
