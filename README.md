@@ -65,5 +65,21 @@ GET /user HTTP/1.1
 
 
 #### 补充
-* 请求体的格式通常由请求头里的content-type指定
+* 请求体的格式通常由请求头里的content-type指定，可能会很大
 
+#### 流
+* 拿到数据时(用桶打水)
+```
+ req.on('data',function(data){
+     requestBodtStr+=data.toString();
+     });
+```
+* 数据全拿到时（桶里的水倒入池子,桶空）
+```
+ req.on('end',function(){
+    const user=JSON.parse(requestBodtStr);
+    users.push(user);
+    res.statusCode=200;
+    res.end(JSON.stringify(user));
+    });
+```
