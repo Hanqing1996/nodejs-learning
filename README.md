@@ -96,7 +96,7 @@ express --view=ejs what_i_love
 ```
 node bin/www
 ```
-* 安装express_demo
+* 安装与运行express_demo
 初始化npm
 ```
 npm init
@@ -105,3 +105,14 @@ npm init
 ```
 npm i --save express
 ```
+运行index.js
+```
+node index.js
+```
+
+#### 中间件
+[code]()
+* 定义
+对请求流程的封装
+* 特点
+执行顺序符合代码上下文顺序
