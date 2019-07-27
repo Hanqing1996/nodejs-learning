@@ -83,3 +83,12 @@ GET /user HTTP/1.1
     res.end(JSON.stringify(user));
     });
 ```
+#### express
+* 安装
+```
+npm i -g express-generator
+```
+* 运行
+```
+express --view=ejs what_i_love
+```
