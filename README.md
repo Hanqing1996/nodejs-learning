@@ -96,3 +96,12 @@ express --view=ejs what_i_love
 ```
 node bin/www
 ```
+* 安装express_demo
+初始化npm
+```
+npm init
+```
+安装express
+```
+npm i --save express
+```

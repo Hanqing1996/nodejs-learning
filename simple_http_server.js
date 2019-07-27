@@ -138,6 +138,7 @@ server.on('request',(req,res)=>{
 
 
 // 流的作用,详见https://xiedaimala.com/tasks/9b86c788-9057-4146-8119-c009ffe2f90f/video_tutorials/dd205608-c618-409f-8095-c87774c7cded
+/*
 // 输入:localhost:8000/user?quan=3&people=china
 server.on('request',(req,res)=>{
 
@@ -176,3 +177,5 @@ server.on('request',(req,res)=>{
             break;    
     } 
 });
+*/
+
