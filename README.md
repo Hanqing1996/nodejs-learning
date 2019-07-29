@@ -1,7 +1,7 @@
 #### z
 * [教程](https://xiedaimala.com/tasks/11ad5683-7e18-4883-879d-8425e6a6ceb7/video_tutorials/d044ad5f-102b-4417-821c-015675d104c8)
 * 作用
-> 在目录之间快速切换
+> 在目录之间快速切换(没去过的目录不能跳转)
 * 用法
 ```
 . ~/.zshrc
@@ -38,7 +38,6 @@ const url=req.url; // url='/user?quan=3&people=china'
 > 列举可进行的操作
 
 * HTTP头部组成：
-<br>
 1. 第一行:方法、路径、协议版本，使用空格分割
 ```
 GET /user HTTP/1.1
@@ -137,3 +136,19 @@ app.post('/title',mw2) // 当且仅当path为'localhost:8888/title/...'时，且
 #### req.query与req.body的区别
 * req.query在url里，位于HTTP请求头的第一行。而req.body在body里，位于HTTP请求体中
 * 在express中req.query可以直接访问。而访问req.body需要先调body-parser
+
+#### NODE_ENV
+* 命令行输入 NODE_ENV=production node bin/www,以下错误信息不会显示
+```
+404
+NotFoundError: Not Found
+    at /home/zhq/nodejs-learning/what_i_love/app.js:27:8
+    at Layer.handle [as handle_request] (/home/zhq/nodejs-learning/what_i_love/node_modules/express/lib/router/layer.js:95:5)
+    at trim_prefix (/home/zhq/nodejs-learning/what_i_love/node_modules/express/lib/router/index.js:317:13)
+......
+```
+这是因为在app.js中有如下设置
+```
+res.locals.error = req.app.get('env') === 'development' ? err : {};
+```
+所以当环境变量不为development时，只返回一个空对象而非err
