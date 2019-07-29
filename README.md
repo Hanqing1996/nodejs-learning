@@ -152,3 +152,12 @@ NotFoundError: Not Found
 res.locals.error = req.app.get('env') === 'development' ? err : {};
 ```
 所以当环境变量不为development时，只返回一个空对象而非err
+
+#### express文件目录
+* public:静态文件目录
+* bin/www:启动入口
+* app.js:文件配置
+* views:渲染目录
+
+#### 路由提前中断
+[code]()

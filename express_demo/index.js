@@ -53,7 +53,7 @@ server.listen('8888');
 
 
 // 错误中间件
-/*
+
 app.use((req,res,next)=>{
 
     // next被放入参数,直接跳转到错误中间件
@@ -65,15 +65,15 @@ app.use((req,res,next)=>{
     res.end('all right')
 });
 
-// 错误中间件处理错误
+//错误中间件处理错误
 app.use((err,req,res,next)=>{
-    res.end(err);
+    res.end(err+'lll');
 });
 
 const server=http.createServer(app);
 
 server.listen('8888');
-*/
+
 
 
 // 中间件的函数写法
@@ -154,6 +154,7 @@ server.listen('8888');
 
 
 // 设置method来进一步控制route
+/*
 function mw1(req,res,next){
     console.log('mw1');
     next();
@@ -175,3 +176,4 @@ app.use((req,res)=>{
 const server=http.createServer(app);
 
 server.listen('8888');
+*/
