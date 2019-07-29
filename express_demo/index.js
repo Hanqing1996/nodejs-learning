@@ -103,6 +103,7 @@ server.listen('8888');
 
 
 // 解析请求体
+/*
 // 详见https://xiedaimala.com/tasks/36b40d29-f099-4f18-a945-6a51d3d0ec9c/video_tutorials/8eccf75f-6861-4ae1-a93d-4a91d937e276
 // urlencoded(键值对)和json是两种Content-Type,可在postman中设置
 // 输入:localhost:8888，method选择post
@@ -118,4 +119,59 @@ app.use((req,res,next)=>{
 const server=http.createServer(app);
 
 server.listen('8888');
+*/
 
+
+// route控制
+/*
+输入'localhost:8888/title',输出mw1
+输入'localhost:8888/article',输出mw1和mw2
+输入'localhost:8888/',输出mw1
+*/
+/*
+function mw1(req,res,next){
+    console.log('mw1');
+    next();
+}
+
+function mw2(req,res,next){
+    console.log('mw2');
+    next();
+}
+
+app.use('/',mw1)
+
+app.use('/article',mw2)
+
+app.use((req,res)=>{
+    res.end('')
+})
+
+const server=http.createServer(app);
+
+server.listen('8888');
+*/
+
+
+// 设置method来进一步控制route
+function mw1(req,res,next){
+    console.log('mw1');
+    next();
+}
+
+function mw2(req,res,next){
+    console.log('mw2');
+    next();
+}
+
+app.get('/title',mw1)
+
+app.post('/article',mw2)
+
+app.use((req,res)=>{
+    res.end('')
+})
+
+const server=http.createServer(app);
+
+server.listen('8888');

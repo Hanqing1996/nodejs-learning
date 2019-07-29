@@ -62,6 +62,9 @@ GET /user HTTP/1.1
 4. 4xx 客户端错误 400请求内容错误 401无权限 403禁止访问 404你懂的
 5. 5xx 服务器错误 500服务器炸了 502网关炸了 503炸几分钟 504超时
 
+#### HTTP体
+* HTTP头部和HTTP体中间：一个空行 
+* HTTP体放置真正传输的内容
 
 
 #### 补充
@@ -117,3 +120,20 @@ node index.js
 * 特点
 1. 执行顺序符合代码上下文顺序
 2. 最后一个中间件必须有res.end('xx')
+3. 可通过中间件来控制route
+```
+app.use('/article',mw1) // path为'localhost:8888/article/...'时，执行mw1
+```
+4. 可设置method来进一步控制route
+```
+app.get('/article',mw1) // 当且仅当path为'localhost:8888/article/...'时，且method为get时执行mw1
+
+app.post('/title',mw2) // 当且仅当path为'localhost:8888/title/...'时，且method为post时执行mw2
+```
+
+#### 网关
+负责接收请求，并且把请求分发到处理业务的不同逻辑上去。
+
+#### req.query与req.body的区别
+* req.query在url里，位于HTTP请求头的第一行。而req.body在body里，位于HTTP请求体中
+* 在express中req.query可以直接访问。而访问req.body需要先调body-parser
