@@ -10,6 +10,10 @@ z 桌面
 #### nvm与node安装
 [教程](https://xiedaimala.com/tasks/09e02796-29a6-4e4b-90f1-122d4dcdcacc/text_tutorials/7484ad66-f446-4c22-af5d-7ece2f731303)
 
+#### 关于端口
+* express_demo:8888
+* what_i_love:3000
+
 #### 搭建http服务器
 * [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/simple_http_server.js)
 * url的组成:
@@ -160,4 +164,9 @@ res.locals.error = req.app.get('env') === 'development' ? err : {};
 * views:渲染目录
 
 #### 路由提前中断
-[code]()
+* [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/route2.js)
+
+#### express中的MVC
+* [M]()
+* [v]()
+* [C(在express中由router实现)]()
