@@ -167,6 +167,11 @@ res.locals.error = req.app.get('env') === 'development' ? err : {};
 * [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/route2.js)
 
 #### express中的MVC
-* [M]()
-* [v]()
-* [C(在express中由router实现)]()
+* [Model](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/in_memo/user.js)
+* [View](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/views/user.ejs)
+* [Controller](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/users.js)
+<br>
+在express中由router实现
+* [Services]()
+<br>
+当我们需要操纵多个model时,service负责对多个Model进行组合操作
