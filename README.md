@@ -180,3 +180,94 @@ res.locals.error = req.app.get('env') === 'development' ? err : {};
 1. 开启Debug就不要再启动项目，Debug已经启动了项目
 2. 设置正确的断点位置很重要
 3. 如果设置断点后还需要方向键，就说明位置不正确
+
+#### 常见数据库
+* postgresql
+适合分布式系统，支持json格式
+* Mysql
+不再开源，会有顾虑
+* oracle
+稳定
+* mongodb
+NoSQL数据库，并发量优于MySQL
+* redis
+NoSQL数据库,key-value数据库
+* memocache
+NoSQL数据库
+
+#### mongodb的安装，运行
+* [下载地址](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials)
+* [补充教程](https://cloud.tencent.com/developer/ask/197392)
+* 创建数据库实例
+mongo_demo为目录，其路径可由pwd命令获知
+```
+mkdir mongo_demo
+mongod --dbpath /home/zhq/nodejs-learning/mongo_demo
+```
+* 进入mongo shell
+```
+mongo
+```
+#### mongodb数据库操作(mongo shell下)
+* 查看所有数据库
+```
+show databases
+```
+* 转到what_i_love数据库(如果没有则自动创建一个)
+```
+use what_i_love
+```
+* 查看当前数据库的表
+```
+show collections
+```
+* 删除当前数据库
+```
+db.dropDatabase()
+```
+#### mongodb表操作
+* 伴随记录的插入，自动创建表users
+```
+db.users.insert({name:'zhq',age:101})
+```
+* 删除users表
+```
+db.users.remove({})
+```
+* 查找当前数据库中所有的表
+```
+show collections
+```
+#### mongodb记录操作(增)
+* 在users表中插入数据，name值为'zhq',age值为101，
+```
+db.users.insert({name:'zhq',age:101})
+```
+#### mongodb记录操作(删)
+* 删除users表中name为'jack'的所有数据
+```
+db.users.deleteOne({name:'jack'})
+``` 
+#### mongodb记录操作(改)
+* 将users表中name为'zhq'的一行数据的age改为19
+```
+db.users.update({name:'zhq'},{name:'zhq',age:19})
+```
+#### mongodb记录操作(查)
+* 查看users表所有记录
+```
+db.users.find().pretty()
+```
+* 查找users表中age为1234的那行数据
+```
+db.users.find({age:1234})
+```
+* 查找users表中age大于13,小于29，city值为Hangzhou的那行数据
+```
+db.users.find({age:{$gt:13，$lt:29}},city:'Hangzhou')
+//gte:大于等于；lte:小于等于
+```
+* 查找users表中不含age属性的数据
+```
+db.users.find({age: {$exists:false}  })
+```
