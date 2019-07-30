@@ -230,13 +230,13 @@ db.dropDatabase()
 ```
 db.users.insert({name:'zhq',age:101})
 ```
-* 删除users表
-```
-db.users.remove({})
-```
 * 查找当前数据库中所有的表
 ```
 show collections
+```
+* 删除users表
+```
+db.users.drop()
 ```
 #### mongodb记录操作(增)
 * 在users表中插入数据，name值为'zhq',age值为101，
@@ -248,26 +248,88 @@ db.users.insert({name:'zhq',age:101})
 ```
 db.users.deleteOne({name:'jack'})
 ``` 
+* 删除users表中所有记录
+```
+db.users.remove({})
+```
 #### mongodb记录操作(改)
 * 将users表中name为'zhq'的一行数据的age改为19
 ```
 db.users.update({name:'zhq'},{name:'zhq',age:19})
 ```
 #### mongodb记录操作(查)
+
+1. 基本格式:db.collection.find({}),{}表示筛选(filter)条件
+2. 对于find({},{}),第一个{}表示where,第二个{}表示select(要显示的列名，应设值为1)
+* 查找age为15的记录，且只显示记录的city(但_id是一定显示的)
+```
+db.users.find({age:15},{city:1})
+```
 * 查看users表所有记录
 ```
-db.users.find().pretty()
+db.users.find()
+// 如果想使得查询结果格式化，可使用db.users.find().pretty()
 ```
-* 查找users表中age为1234的那行数据
+* 查找users表中age为1234的记录
 ```
 db.users.find({age:1234})
 ```
+* 查找users表中name为"nezha",age为1001的记录
+```
+db.users.find({name:"nezha",age:1001})
+```
 * 查找users表中age大于13,小于29，city值为Hangzhou的那行数据
 ```
-db.users.find({age:{$gt:13，$lt:29}},city:'Hangzhou')
+db.users.find({age:{$gt:13,$lt:29},city:'Hangzhou'})
 //gte:大于等于；lte:小于等于
 ```
 * 查找users表中不含age属性的数据
 ```
-db.users.find({age: {$exists:false}  })
+db.users.find({age: {$exists:false} })
 ```
+* 数组查询:查询hobbies字段(数组类型)包含"drink"的记录
+插入数据
+```
+db.users.insertOne({name:"laoxiong",hobbies:["eat","drink","sleep"]})
+db.users.insertOne({name:"xiaoiong",hobbies=["drink","fight"]})
+```
+查找
+```
+db.users.find({hobbies:"drink"})
+```
+#### "自增变量"型主键的缺陷
+* 主键的作用是作为当前这行数据的唯一标识。
+* 从前，人们用到的数据量比较小，因此采用"自增变量"作为一行数据的主键
+* 然而随着数据量越来越大，问题开始暴露出来：假如有A,B,C三张表，都是"用户注册表"的分表(即A,B,C所有行数据的主键必须不重复，因为他们其实同属于一张表)，如果A表要填入新数据，遵循"自增变量"原则，就需要先去询问"用户注册表"，查询到最新主键值，再加1，设置为A表新数据的主键值。而一旦负责存放最新主键值的数据库所在服务器出了问题，就意味着A,B,C的业务都无法再进行了。
+
+#### mongodb的主键
+* id设置方式 
+MongoDB中的主键id以时间戳为基础，以进程编号，服务器名称为后缀，以此保证新数据填入时一定有一个独一无二的标识，从而免去与"用户注册表"的主键查询交互。
+* 新生成一个id
+```
+var id=ObjectId()
+```
+* 获取创建id的时间
+```
+id.getTimestamp()
+```
+#### mongoeb的表不需要设置空值，且每个记录的字段情况都可以不同
+比如
+```
+db.users.insertOne({name:"liming",age:15})
+db.users.insertOne({city:"chengdu",sex:"male"})
+```
+则users表内容为
+```
+{
+	"_id" : ObjectId("5d401910cf6da402e004f249"),
+	"name" : "liming",
+	"age" : 15
+}
+{
+	"_id" : ObjectId("5d40193fcf6da402e004f24a"),
+	"city" : "chengdu",
+	"sex" : "male"
+}
+```
+
