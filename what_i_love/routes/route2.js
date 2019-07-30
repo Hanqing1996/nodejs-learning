@@ -33,4 +33,5 @@ router.use('/',(req,res,next)=>{
     console.log('mw2');
     next() // 按照app.js中的路由设置顺序继续执行下一个中间件
 })
+
 module.exports = router;

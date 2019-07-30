@@ -7,6 +7,8 @@ class User{
         this.firstname=firstname;
         this.lastname=lastname;
         this.age=age;
+        User.id+=1;
+        this.id=User.id;
     }
 
 
@@ -27,6 +29,11 @@ class User{
         return u;
     }
 
+    static getOneById(userId){
+        const u=User.users.find(u=>u.id===userId);
+        return u;
+    }
+
     static list(query){
         return User.users;
     }
@@ -35,6 +42,8 @@ class User{
         return users;
     }
 }
+
+User.id=0;
 
 module.exports=User;
 

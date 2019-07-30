@@ -7,3 +7,7 @@ module.exports.getAllUsers=function(){
 module.exports.addNewUser=function(firstname,lastname,age){
     return User.insert(firstname,lastname,age);
 };
+
+module.exports.getUserById=function(userId){
+    return User.getOneById(userId);
+};

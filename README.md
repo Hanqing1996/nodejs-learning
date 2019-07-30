@@ -172,6 +172,10 @@ res.locals.error = req.app.get('env') === 'development' ? err : {};
 * [Controller](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/users.js)
 <br>
 在express中由router实现
-* [Services]()
+* [Services](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/user_service.js)
 <br>
 当我们需要操纵多个model时,service负责对多个Model进行组合操作
+
+#### Debug注意事项
+1. 开启Debug就不要再启动项目，Debug已经启动了项目
+2. 设置断点的地方很重要
