@@ -178,4 +178,5 @@ res.locals.error = req.app.get('env') === 'development' ? err : {};
 
 #### Debug注意事项
 1. 开启Debug就不要再启动项目，Debug已经启动了项目
-2. 设置断点的地方很重要
+2. 设置正确的断点位置很重要
+3. 如果设置断点后还需要方向键，就说明位置不正确

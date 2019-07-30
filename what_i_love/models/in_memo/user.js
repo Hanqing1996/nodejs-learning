@@ -1,6 +1,6 @@
 // 命令行输入:node models/in_memo/user.js
 
-const users=[] //程序启动时,users被初始化为[],在users的调用过程中,users的值会改变
+const users=[]; //程序启动时,users被初始化为[],在users的调用过程中,users的值会改变
 
 class User{
     constructor(firstname,lastname,age){
