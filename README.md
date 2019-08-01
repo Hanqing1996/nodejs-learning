@@ -607,7 +607,7 @@ db.users.aggregate([
 		"name" : "snowing",
 		"level" : "bad"
 	}
-}
+} 
 ```
 #### mongodb索引
 * 单独索引:
