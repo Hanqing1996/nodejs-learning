@@ -625,4 +625,4 @@ db.users.createIndex({age:1,name:-1})
 ```
 db.users.getIndexes()
 ```
-
+try
