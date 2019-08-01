@@ -195,6 +195,16 @@ NoSQL数据库,key-value数据库
 * memocache
 NoSQL数据库
 
+#### NoSQL的通病
+事务机制不友好(订单系统不要用mongodb)
+
+#### 查看mongodb端口号
+```
+db.getMongo()
+```
+#### RoboMongo
+* [教程](https://www.jianshu.com/p/4e1691545fe9)
+
 #### mongodb的安装，运行
 * [下载地址](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials)
 * [补充教程](https://cloud.tencent.com/developer/ask/197392)
@@ -253,17 +263,35 @@ db.users.deleteOne({name:'jack'})
 db.users.remove({})
 ```
 #### mongodb记录操作(改)
-* 将users表中name为'zhq'的一行数据的age改为19
+* 查找name为"zhq"的记录，并修改其age字段(其它字段不变)
 ```
-db.users.update({name:'zhq'},{name:'zhq',age:19})
+db.users.update({name:'zhq'},{$set{age:19})
+```
+等价于
+```
+UPDATE users 
+SET 
+    age = 19
+WHERE
+    name = 'zhq';
+```
+* 查找name为"xiao"的记录，并抹去其age字段(其它字段保留)
+```
+db.users.update({name:'xiao'},{$unset:{age:true}})
 ```
 #### mongodb记录操作(查)
 
 1. 基本格式:db.collection.find({}),{}表示筛选(filter)条件
-2. 对于find({},{}),第一个{}表示where,第二个{}表示select(要显示的列名，应设值为1)
-* 查找age为15的记录，且只显示记录的city(但_id是一定显示的)
+2. 对于find({},{}),第一个{}表示where,第二个{}表示select(mongodb中称为projrction)
+* 查找age为15的记录，且只显示city列(但_id是一定显示的)
 ```
 db.users.find({age:15},{city:1})
+```
+* 查找age为15的记录，除了city列外其他列都显示
+// 1可以理解为只选
+```
+db.users.find({age:15},{city:0})
+// 0可以理解为反选
 ```
 * 查看users表所有记录
 ```
@@ -287,15 +315,149 @@ db.users.find({age:{$gt:13,$lt:29},city:'Hangzhou'})
 ```
 db.users.find({age: {$exists:false} })
 ```
-* 数组查询:查询hobbies字段(数组类型)包含"drink"的记录
-插入数据
-```
-db.users.insertOne({name:"laoxiong",hobbies:["eat","drink","sleep"]})
-db.users.insertOne({name:"xiaoiong",hobbies=["drink","fight"]})
-```
-查找
+* 数组字段查询
 ```
 db.users.find({hobbies:"drink"})
+```
+结果为
+```
+{
+	"_id" : ObjectId("5d402c77cf6da402e004f251"),
+	"name" : "laoxiong",
+	"hobbies" : [
+		"eat",
+		"drink",
+		"sleep"
+	]
+}
+```
+* 对象字段查询1
+```
+db.users.find({'hobbies.hiking':{$exists:true}})
+```
+结果为
+```
+{
+	"_id" : ObjectId("5d402ce6cf6da402e004f252"),
+	"name" : "middlexiong",
+	"hobbies" : {
+		"hiking" : "great",
+		"swimming" : "poor"
+	}
+}
+{
+	"_id" : ObjectId("5d402ce6cf6da402e004f252"),
+	"name" : "middlexiong",
+	"hobbies" : {
+		"hiking" : "great",
+		"swimming" : "poor"
+	}
+}
+```
+
+* 对象字段查询2
+```
+db.users.find({'hobbies.hiking':'great'})
+```
+结果为
+```
+{
+	"_id" : ObjectId("5d402bb7cf6da402e004f250"),
+	"name" : "xiaoiong",
+	"hobbies" : {
+		"hiking" : "great",
+		"swimming" : "poor"
+	}
+}
+```
+* 对象数组字段查询
+```
+db.users.find({'hobbies.name':'hiking'})
+```
+结果为
+```
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : [
+		{
+			"name" : "hiking",
+			"level" : "great"
+		},
+		{
+			"name" : "snowing",
+			"level" : "bad"
+		}
+	]
+}
+```
+* 对象数组指定顺序字段查询
+有数据集如下
+```
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : [
+		{
+			"name" : "hiking",
+			"level" : "great"
+		},
+		{
+			"name" : "snowing",
+			"level" : "bad"
+		}
+	]
+}
+{
+	"_id" : ObjectId("5d426392cf6da402e004f254"),
+	"name" : "minixiong",
+	"hobbies" : [
+		{
+			"name" : "flying",
+			"level" : "great"
+		},
+		{
+			"name" : "hiking",
+			"level" : "bad"
+		}
+	]
+}
+```
+执行
+```
+db.users.find({'hobbies.0.name':'hiking'}).pretty()
+```
+结果为
+```
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : [
+		{
+			"name" : "hiking",
+			"level" : "great"
+		},
+		{
+			"name" : "snowing",
+			"level" : "bad"
+		}
+	]
+}
+```
+#### findOneAndUpdate(用户登录，若没注册则自动注册)
+原子性操作
+```
+db.users.findOneAndUpdate({name:xiexieni},{$set:{age:11}},{upsert:true})
+```
+"非原子操作会带来脏数据"这句话是何意思?
+```
+比如先find,再insert;这两个动作合成的一个操作就不是一个原子操作，在find完毕之后可能数据又被别的操作写入，这时我们再写入就会造成重复写入
+```
+#### options
+db.collection.operate({},{},{options})
+* multi:将所有name为'jojo'的记录的age字段值修改为100
+```
+db.users.update({name:'jojo'},{$set:{age:100}},{multi:true})
 ```
 #### "自增变量"型主键的缺陷
 * 主键的作用是作为当前这行数据的唯一标识。
@@ -331,5 +493,136 @@ db.users.insertOne({city:"chengdu",sex:"male"})
 	"city" : "chengdu",
 	"sex" : "male"
 }
+```
+#### mongodb聚合
+* 语法
+```
+db.users.aggregate([
+    {
+     $match:{
+         查找目标字段:{
+             字段筛选条件
+         }
+     }
+    },
+    {
+     $group:{
+         _id:"$数据分组依据字段",
+         select_column:{
+             $操作符:"$受处理字段"
+         }
+     }
+    }
+])
+```
+* 将存在age字段的记录按照name分组,并统计各组年龄之和
+```
+db.users.aggregate([
+    {
+     $match:{
+         age:{
+             $exists:true
+         }
+     }
+    },
+    {
+     $group:{
+         _id:"$name",
+         totalAge:{
+             $sum:"$age"
+         }
+     }
+    }
+])
+```
+等价于
+```
+select sum(age) as totalAge
+from users
+where age exists
+group by name;
+```
+结果为
+```
+{
+    "_id" : "Hanmeimei",
+    "totalAge" : 38.0
+}
+
+{
+    "_id" : "Lilie",
+    "totalAge" : 19.0
+}
+
+{
+    "_id" : "jack",
+    "totalAge" : 38.0
+}
+```
+#### unwind:数组拆分
+对于
+```
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : [
+		{
+			"name" : "hiking",
+			"level" : "great"
+		},
+		{
+			"name" : "snowing",
+			"level" : "bad"
+		}
+	]
+}
+```
+通过
+```
+db.users.aggregate([
+    {
+     $match:{
+         name:'superxiong'
+     }
+    },
+    {
+     $unwind:"$hobbies"
+    }
+]).pretty()
+```
+可得到
+```
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : {
+		"name" : "hiking",
+		"level" : "great"
+	}
+}
+{
+	"_id" : ObjectId("5d402edccf6da402e004f253"),
+	"name" : "superxiong",
+	"hobbies" : {
+		"name" : "snowing",
+		"level" : "bad"
+	}
+}
+```
+#### mongodb索引
+* 单独索引:
+创建按age升序排列的索引
+```
+db.users.createIndex({age:1})
+//-1则表示降序排列
+```
+* 组合索引
+创建按age升序，按name降序的组合索引
+```
+db.users.createIndex({age:1,name:-1})
+```
+* 查看表的所有索引
+```
+db.users.getIndexes()
 ```
 
