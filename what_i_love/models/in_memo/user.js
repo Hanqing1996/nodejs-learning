@@ -24,7 +24,7 @@ class User{
         return u;
     }
 
-    static getOneByName(firstname,lastname,age){
+    static getOneByName(firstname,lastname){
         const u=User.users.find(u=>u.firstname===firstname&&u.lastname===u.lastname);
         return u;
     }

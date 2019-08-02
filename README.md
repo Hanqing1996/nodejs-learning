@@ -89,6 +89,11 @@ GET /user HTTP/1.1
     res.end(JSON.stringify(user));
     });
 ```
+#### node.js中的exports
+* [exports一个类](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/user_service.js)
+* [exports一些方法]()
+* [exports一个对象]()
+
 #### express
 * 安装
 ```
@@ -317,7 +322,7 @@ db.users.remove({})
 #### mongodb记录操作(改)
 * 查找name为"zhq"的记录，并修改其age字段(其它字段不变)
 ```
-db.users.update({name:'zhq'},{$set{age:19})
+db.users.update({name:'zhq'},{$set{age:19}})
 ```
 等价于
 ```
@@ -333,7 +338,7 @@ db.users.update({name:'xiao'},{$unset:{age:true}})
 ```
 #### mongodb记录操作(查)
 
-1. 基本格式:db.collection.find({}),{}表示筛选(filter)条件
+1. 基本格式:db.collection.find({}),{}表示筛选(filter)条件,等价于select ...
 2. 对于find({},{}),第一个{}表示where,第二个{}表示select(mongodb中称为projrction)
 * 查找age为15的记录，且只显示city列(但_id是一定显示的)
 ```
@@ -685,5 +690,11 @@ db.users.getIndexes()
 * [如何自动生成node modules文件](https://www.jianshu.com/p/8cee0acd6afd)
 * package-lock.json文件的作用
 > 指定我在运行本地项目时各个module包的版本号,这样别人在获得我的项目时就可以按照package-lock.json文件的内容安装各个包了
-* 
-#### mongoose
+
+#### mongoose_demo(包括增删该查，参数化查询)
+* [code]()
+
+
+#### 用mongoose重构model层
+* [models/user.js]()
+* [service/mongodb_connection.js]()
