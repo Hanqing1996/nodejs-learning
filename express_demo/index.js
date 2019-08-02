@@ -1,3 +1,4 @@
+// public
 const express=require('express');
 const http=require('http');
 const app=express(); 
@@ -20,10 +21,6 @@ app.use((req,res,next)=>{
 app.use((req,res)=>{
     res.end('you got end');
 });  
-  
-const server=http.createServer(app);
-
-server.listen('8888');
 */
 
 
@@ -44,16 +41,12 @@ app.use(auth);
 app.use((req,res,next)=>{
     res.end(`welcome,${req.query.username}`)
 })
-  
-const server=http.createServer(app);
-
-server.listen('8888');
 */
 
 
 
 // 错误中间件
-
+/*
 app.use((req,res,next)=>{
 
     // next被放入参数,直接跳转到错误中间件
@@ -69,12 +62,7 @@ app.use((req,res,next)=>{
 app.use((err,req,res,next)=>{
     res.end(err+'lll');
 });
-
-const server=http.createServer(app);
-
-server.listen('8888');
-
-
+*/
 
 // 中间件的函数写法
 /*
@@ -95,10 +83,6 @@ function mw3(req,res,next){
 
 // 等价于app.use([mw1,mw2],mw3)
 app.use(mw1,mw2,mw3)
-
-const server=http.createServer(app);
-
-server.listen('8888');
 */
 
 
@@ -115,10 +99,6 @@ app.use((req,res,next)=>{
     console.log(req.body);
     res.end('');
 });
-
-const server=http.createServer(app);
-
-server.listen('8888');
 */
 
 
@@ -146,10 +126,6 @@ app.use('/article',mw2)
 app.use((req,res)=>{
     res.end('')
 })
-
-const server=http.createServer(app);
-
-server.listen('8888');
 */
 
 
@@ -172,8 +148,11 @@ app.post('/article',mw2)
 app.use((req,res)=>{
     res.end('')
 })
+*/
 
+
+// public
 const server=http.createServer(app);
 
 server.listen('8888');
-*/
+

@@ -255,9 +255,9 @@ waiting for connections on port 27017
 ```
 * mongod --dbpath 命令是创建数据库文件的存放位置；
 * 每次启动mongodb服务时需要先确定数据库文件存放的位置，否则系统不会自动创建，启动会不成功。
-* 我们
+* 注意27017是被连接的端口，而连接到这个接口的可能有多个接口(43832,46252等等)，可通过mongod --dbpath信息查阅
 ```
-3 connections now open)
+（3 connections now open)
 ```
 9. 连接mongodb(新终端,直接输入以下命令)
 ```
@@ -269,44 +269,6 @@ momgo
 mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
 
 momgo
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-* [下载地址](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials)
-* [补充教程](https://cloud.tencent.com/developer/ask/197392)
-* 创建数据库实例
-mongo_demo为目录，其路径可由pwd命令获知
-```
-mkdir mongo_demo
-mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
-```
-* 进入mongo shell
-```
-mongo
 ```
 #### mongodb数据库操作(mongo shell下)
 * 查看所有数据库

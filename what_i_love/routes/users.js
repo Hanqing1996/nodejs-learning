@@ -1,3 +1,4 @@
+// public
 var express = require('express');
 var router = express.Router();
 
@@ -12,8 +13,6 @@ router.get('/',(req,res)=>{
   res.locals.user=u;
   res.render('user');
 });
-
-module.exports = router;
 */
 
 
@@ -49,8 +48,6 @@ router.get('/:userId',(req,res)=>{
   res.locals.user=user;
   res.render('user');
 });
-
-module.exports = router;
 */
 
 
@@ -68,7 +65,7 @@ body为
 params设置userId:1,
 url用body的urlencoded指定，设为'https://google.com"
 */
-
+/*
 const UserServices=require('../services/user_service');
 
 router.post('/',(req,res)=>{
@@ -85,5 +82,8 @@ router.post('/:userId/subscription',(req,res,next)=>{
     next(e);
   }
 });
+*/
 
+
+// public
 module.exports = router;
