@@ -4,7 +4,7 @@
 > 在目录之间快速切换(没去过的目录不能跳转)
 * 用法
 ```
-. ~/.zshrc
+. ~/.zshrc(已用alias rename为 zz)
 z 桌面
 ```
 #### nvm与node安装
@@ -205,14 +205,104 @@ db.getMongo()
 #### RoboMongo
 * [教程](https://www.jianshu.com/p/4e1691545fe9)
 
-#### mongodb的安装，运行
+#### mongodb的安装，运行(it will be long)
+* [参考教程1](https://blog.csdn.net/qq_24672657/article/details/86703342)
+* [参考教程2](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu-tarball/)
+1. 在/home/zhq 目录下创建mongodb文件夹
+2. 在mongodb目录下执行
+```
+sudo apt-get install libcurl3 openssl
+```
+这一步的目的是安装必要的依赖文件，还没有安装mongodb
+3. 在[官网](https://www.mongodb.com/download-center/community?jmp=docs)下载安装包，注意package选择TGZ
+4. 将安装包放至mongodb文件夹中，在mongodb目录下执行以下命令解压
+```
+tar zxvf mongodb-linux-x86_64-ubuntu1604-4.0.11.tgz
+```
+5. 在mongodb目录下执行以下命令重命名解压后的文件
+```
+mv mongodb-linux-x86_64-ubuntu1604-4.0.11 mongodb-4.0.11
+```
+6. 在mongodb目录下面，创建data目录，在data目录下创建db目录和logs
+```
+mkdir data
+cd data
+mkdir db
+touch logs
+```
+7. 在data目录下 创建 my.conf 文件,编辑文件内容如下(vi my.conf)
+```
+#端口号
+port = 27017
+#数据目录
+dbpath = /usr/local/mongodb/data
+#日志目录
+logpath = /usr/local/mongodb/data/logs
+#设置后台运行
+fork = true
+#日志输出方式
+logappend = true
+#开启认证
+#auth = true
+```
+8. 启动mongodb(新终端,直接输入以下命令)
+```
+mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
+```
+正常情况下最后一行信息为
+```
+waiting for connections on port 27017
+```
+* mongod --dbpath 命令是创建数据库文件的存放位置；
+* 每次启动mongodb服务时需要先确定数据库文件存放的位置，否则系统不会自动创建，启动会不成功。
+* 我们
+```
+3 connections now open)
+```
+9. 连接mongodb(新终端,直接输入以下命令)
+```
+momgo
+```
+关闭momgo命令终端后，connection数减1
+10. 总结：要使用mongodb,必须要两个命令
+```
+mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
+
+momgo
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 * [下载地址](https://docs.mongodb.com/manual/installation/#mongodb-community-edition-installation-tutorials)
 * [补充教程](https://cloud.tencent.com/developer/ask/197392)
 * 创建数据库实例
 mongo_demo为目录，其路径可由pwd命令获知
 ```
 mkdir mongo_demo
-mongod --dbpath /home/zhq/nodejs-learning/mongo_demo
+mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
 ```
 * 进入mongo shell
 ```
@@ -625,4 +715,13 @@ db.users.createIndex({age:1,name:-1})
 ```
 db.users.getIndexes()
 ```
-try
+
+#### 哪些文件不该上传(不利于，或者说无用于别人运行我的项目的文件，都不该上传)
+* .vscode/.idea
+* node modules
+* [删除github上的编辑器配置文件(.idea,.vscode等)，并在push时忽略配置文件](https://github.com/Hanqing1996/blog/blob/master/github%E7%9B%B8%E5%85%B3/README.md)
+* [如何自动生成node modules文件](https://www.jianshu.com/p/8cee0acd6afd)
+* package-lock.json文件的作用
+> 指定我在运行本地项目时各个module包的版本号,这样别人在获得我的项目时就可以按照package-lock.json文件的内容安装各个包了
+* 
+#### mongoose
