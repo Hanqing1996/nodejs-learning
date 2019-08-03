@@ -7,7 +7,7 @@ class Subscription{
     static list(){
         return Subscription.subscriptions;
     }
-
+ 
     static insert(userId,url){
         const sub=new Subscription(userId,url);
         Subscription.subscriptions.push(sub);

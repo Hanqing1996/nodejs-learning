@@ -91,8 +91,8 @@ GET /user HTTP/1.1
 ```
 #### node.js中的exports
 * [exports一个类](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/user_service.js)
-* [exports一些方法]()
-* [exports一个对象]()
+* [exports一些方法](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
+* [exports一个对象](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
 
 #### express
 * 安装
@@ -692,9 +692,9 @@ db.users.getIndexes()
 > 指定我在运行本地项目时各个module包的版本号,这样别人在获得我的项目时就可以按照package-lock.json文件的内容安装各个包了
 
 #### mongoose_demo(包括增删该查，参数化查询)
-* [code]()
+* [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/mongoose_demo.js)
 
 
 #### 用mongoose重构model层
-* [models/user.js]()
-* [service/mongodb_connection.js]()
+* [models/user.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
+* [service/mongodb_connection.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)

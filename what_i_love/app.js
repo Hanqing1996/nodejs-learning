@@ -3,9 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db=require('./services/mongodb_connection') // 连接mongodb数据库
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var users_mongoose_Router = require('./routes/users_mongoose'); // 使用mongoose重构model
 
 var app = express();
 
@@ -21,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/route2'));
 app.use('/', indexRouter);
+app.use('/users_mongoose', users_mongoose_Router);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler

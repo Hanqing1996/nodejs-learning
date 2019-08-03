@@ -1,28 +1,36 @@
 const mongoose=require('mongoose');
-const schema=mongoose.Schema;
+const { Schema }=mongoose;
+
+mongoose.set('useCreateIndex', true)
 
 const UserSchema=new Schema({
     name:{type:String,required:true,unique:true,index:1},
     age:{type:Number,max:100,min:0},
-    firstname:{type:String,required:true},
-    lastname:{type:String,required:true},
+    subscription:{}
 });
 
-const UserModel=mongoose.model('user',UserModel);
+const UserModel=mongoose.model('user',UserSchema);
 
-// 对应in_memo/user的insert方法
 async function insert(user){
-    return await UserModel.create(user);
+    const created=await UserModel.create(user);
+    return created;
 }
 
-async function getOneByName(firstname,lastname){
-    return await UserModel.findOne({firstname,lastname});
+async function getOneById(id){
+    const user=await UserModel.findOne({_id:id});
+    return user;
+}
+
+async function getOneByName(name){
+    const user=await UserModel.findOne({name});
+    return user;
 }
 
 async function list(params){
     const filter={};
     const flow=UserModel.find(filter);
-    return await flow.exec();
+    const users=await flow.exec();
+    return users; //在这里设置断点，可以看到users的成员具体信息
 }
 
 module.exports={

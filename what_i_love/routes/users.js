@@ -65,9 +65,8 @@ body为
 params设置userId:1,
 url用body的urlencoded指定，设为'https://google.com"
 */
-/*
-const UserServices=require('../services/user_service');
 
+const UserServices=require('../services/user_service');
 router.post('/',(req,res)=>{
   const {firstname,lastname,age}=req.body
   const u=UserServices.addNewUser(firstname,lastname,age)
@@ -82,7 +81,6 @@ router.post('/:userId/subscription',(req,res,next)=>{
     next(e);
   }
 });
-*/
 
 
 // public
