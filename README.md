@@ -696,5 +696,10 @@ db.users.getIndexes()
 
 
 #### 用mongoose重构model层
-* [models/user.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
+* app.js改动:自己看，有注释
+* [models/mongoose/user.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
+* [models/mongoose/subscription.js]()
 * [service/mongodb_connection.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
+* [service/user_service_mongoose.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
+* [routes/users_mongoose.js]()
+* [views/users_mongoose.ejs]()
