@@ -11,7 +11,7 @@ const UserSchema=new Schema({
 
 const SubModel=mongoose.model('Sub',SubModel);
 
-async function insert(sub){
+async function insert(sub){ 
     const created=await SubModel.create(sub);
     return created;
 }
