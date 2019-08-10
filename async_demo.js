@@ -20,3 +20,5 @@ import { createBrotliCompress } from "zlib";
     console.log(per);
 
 })()
+
+1 2 5 6 8 3 7 4
