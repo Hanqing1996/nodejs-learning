@@ -1,5 +1,3 @@
-
-
 // 用户订阅，需要用到User和Subscription两个Model
 const User=require('../models/mongoose/user'); // 调用in_memo的user类 
 const Subscription=require("../models/in_memo/subscription");
@@ -15,7 +13,7 @@ class UserServices{
 
         // 在service做校验，判断输入的对象字段是否正确
         const user=await User.insert({
-            name,
+            name, 
             age,
         });
         return user;

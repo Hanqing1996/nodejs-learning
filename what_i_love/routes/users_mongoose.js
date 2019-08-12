@@ -1,5 +1,4 @@
 var express = require('express');
-
 var router = express.Router();
 
 const UserService=require('../services/user_service_mongoose');
