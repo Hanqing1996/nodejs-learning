@@ -702,3 +702,24 @@ db.users.getIndexes()
 * [service/user_service_mongoose.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
 * [routes/users_mongoose.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/users_mongoose.js)
 * [views/users_mongoose.ejs](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/views/users_mongoose.ejs)
+
+#### Node.js中的回调
+* 回调函数(callback)第1个参数为err,第2个及以后为返回的结果
+```
+function foo(callback){
+    setTimeout(()=>{
+        console.log('duang');
+        callback(null,'resolved');
+    },1000);
+}
+
+function callback(err,result){
+    if(err) return console.log('err');
+    console.log(result);
+}
+
+foo(callback);
+```
+* [回调为什么不好:28:00](https://xiedaimala.com/tasks/428449c1-efa6-4a23-98ce-4fdea794f7b7/video_tutorials/d2ad93ba-cd2d-4735-b013-337e23e6563b)
+* [回调地狱]()
+* [用async,await消除回调地狱]()
