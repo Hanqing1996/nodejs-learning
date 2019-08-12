@@ -8,6 +8,7 @@ var db=require('./services/mongodb_connection') // 连接mongodb数据库
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var users_mongoose_Router = require('./routes/users_mongoose'); // 使用mongoose重构model
+var users_errors_Router=require('./routes/users_errors'); // 错误处理实践
 
 var app = express();
 
@@ -24,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/route2'));
 app.use('/', indexRouter);
 app.use('/users_mongoose', users_mongoose_Router);
+app.use('/users_errors', users_errors_Router);
 app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
