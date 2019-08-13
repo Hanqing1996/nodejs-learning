@@ -1,2 +1,2 @@
 {"message":"my first log with winston","level":"info"}
-{"message":"my first log with winston","level":"info"}
+{"message":"my first log with winston","level":"error"}

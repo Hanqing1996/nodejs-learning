@@ -1,3 +1,9 @@
+* 查看进程
+> netstat -tln
+* lsof -i :3000
+> 查看占用3000端口的进程
+* 杀死PID为xxx的进程
+> kill -9 xxx
 #### z
 * [教程](https://xiedaimala.com/tasks/11ad5683-7e18-4883-879d-8425e6a6ceb7/video_tutorials/d044ad5f-102b-4417-821c-015675d104c8)
 * 作用
@@ -138,6 +144,7 @@ app.get('/article',mw1) // 当且仅当path为'localhost:8888/article/...'时，
 
 app.post('/title',mw2) // 当且仅当path为'localhost:8888/title/...'时，且method为post时执行mw2
 ```
+5. [路由提前中断与错误处理的区别]()
 
 #### 网关
 负责接收请求，并且把请求分发到处理业务的不同逻辑上去。
@@ -703,6 +710,16 @@ db.users.getIndexes()
 * [routes/users_mongoose.js](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/users_mongoose.js)
 * [views/users_mongoose.ejs](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/views/users_mongoose.ejs)
 
+#### 启动用mongoose重构后的what_i_love
+1. 启动mongodb
+```
+mongod --dbpath /home/zhq/mongodb/mongodb-4.0.11/data/db
+```
+2. 启动what_i_love
+在what_i_love目录下
+```
+node bin/www
+```
 #### Node.js中的回调
 * 回调函数(callback)第1个参数为err,第2个及以后为返回的结果
 ```
@@ -721,5 +738,75 @@ function callback(err,result){
 foo(callback);
 ```
 * [回调为什么不好:28:00](https://xiedaimala.com/tasks/428449c1-efa6-4a23-98ce-4fdea794f7b7/video_tutorials/d2ad93ba-cd2d-4735-b013-337e23e6563b)
-* [回调地狱]()
-* [用async,await消除回调地狱]()
+* [回调地狱](https://github.com/Hanqing1996/nodejs-learning/blob/master/callbackhell_demo2.js)
+* [用async,await消除回调地狱](https://github.com/Hanqing1996/nodejs-learning/blob/master/eliminate_cellbackhell_demo.js)
+
+#### 错误
+1. 在哪里抛出错误
+2. 在那里捕捉错误
+3. try/catch{}{}与catch(()=>{})等价
+```
+async function foo(){
+    throw new Error('foo wrong got wrong');
+}
+
+try {
+    await foo();
+	console.log('1')
+} catch (err) {
+    console.log('caught foo wrong');
+}
+```
+等价于
+```
+async function foo(){
+	throw new Error('foor function got wrong');
+}
+
+foo().catch((err)=>{
+	console.log('caught foo wrong');
+})
+```
+#### error处理实践
+* app.js改动:自己看，有注释
+* [http错误基类]()
+```
+httpStatusCode：http状态码,包括200,404,500等
+message：描述错误原因
+httpMsg：展示给用户的信息
+errCode：错误码,是对http状态码的扩展，包括4000001(错误未找到),4000002(用户未找到)等
+```
+* [request请求参数错误类()]
+```
+paramName：错误类型描述
+desc：展示给用户的信息
+msg：描述错误原因
+```
+* [服务器错误类]()
+* [资源未找到类]()
+* [http_error_handle]()
+作为最后一个错误处理中间件，负责记录所有与http相关的错误
+* [error_handle]()
+```
+uncaught error in the middleware process
+```
+* [users_errors.js]()
+
+#### 日志分级
+info：用户成功进行某项操作
+
+
+#### 日志处理
+Tag(方便日后搜索):是在哪一行打出来的
+
+
+
+
+
+
+
+
+
+
+
+
