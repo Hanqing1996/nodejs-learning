@@ -1,4 +1,5 @@
 const winston=require('winston');
+require('winston-daily-rotate-file');
 
 const { Logger,transports }=winston; // logger为winston的logger字段值
 
@@ -9,7 +10,7 @@ const logger = winston.createLogger({
       new (transports.File)({
         name: 'info-file',
         filename: 'logs/info.log',
-        level: 'info'
+        level: 'info',
       }),
 
       // 将error输出至logs目录下的error.log  
@@ -32,15 +33,18 @@ const logger = winston.createLogger({
 // 记录一条error信息
 // logger.error('my first log with winston');
 
-  const reqLogger=winston.createLogger({
-      transports:[
-          new transports.File({
-              name:'req_looger',
-              filename:'logs/req.log',
-              level:'info'
-          }),
-          new transports.Console(),
-      ]
-  });
+// 处理请求的logger
+const reqLogger=winston.createLogger({
+    transports:[
+        new transports.Console(),
 
-  reqLogger.info('request from client')
+        new transports.DailyRotateFile({
+            filename:'./logs/req_log.log',
+            datePattern:'YYYY_MM_dd', // 设置日期格式，便于将日志记录按照日期分档
+            prepend:true,
+            level:'info',
+        })
+    ]
+});
+
+reqLogger.info('request from client')

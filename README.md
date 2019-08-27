@@ -47,37 +47,52 @@ const url=req.url; // url='/user?quan=3&people=china'
 4. OPTIONS
 > 列举可进行的操作
 
-* HTTP头部组成：
-1. 第一行:方法、路径、协议版本，使用空格分割
+#### 请求
+* 请求包括四部分,其中第1,2部分被称为请求头,第4部分被称为请求体
+1. 方法、路径、协议版本，使用空格分割
 ```
-GET /user HTTP/1.1
+GET /user/info HTTP/1.1
 ```
-2. 第二行开始:内容
-* HTTP头中常见键值对：
-1. Host 指明请求的地址
-2. Server 服务器信息
-3. Content-Type 请求体的格式,如 xxx/www-url-encoded-form-data application/json
-4. Accept: 接受的返回格式
-5. Accept-Encoding：接受的请求编码
-6. Accept-Language：接受的语言
-7. Pragma：兼容http1.0的缓存
-8. Cache-Control:缓存策略
-9. Via:走过的服务器链路信息
-* Response头第一行： 
-> 协议 状态码 状态描述 如 HTTP/1.1 200 OK
-* 返回码：
+2. 一堆键值对
+```
+Host 指明请求的地址
+Server 服务器信息
+Content-Type 请求体的格式,如 xxx/www-url-encoded-form-data application/json
+Accept: 接受的返回格式(*/* 表示接受任何格式)
+Accept-Encoding：接受的请求编码
+Accept-Language：接受的语言
+Pragma：兼容http1.0的缓存
+Cache-Control:缓存策略
+Via:走过的服务器链路信息
+Use-agent:curl/chrome
+```
+3. 回车，作用只有一个：分隔开第二部分和第四部分
+4. 随便什么内容都可以，内容的格式必须要第二部分里用 Content-Type 说明
+
+#### 响应
+* 响应包括四部分
+1. 协议/版本号 状态码 状态信息
+```
+HTTP/1.1 404 Not Found
+```
+2. 一堆 key: value，用回车分割
+```
+Content-Type: text/html;charset=utf-8
+Date: Tue, 27 Aug 2019 10:28:00 GMT
+Connection: keep-alive
+Transfer-Encoding: chunked
+```
+3. 回车，作用只有一个：分隔开第二部分和第四部分
+4. 随便什么内容都可以，内容的格式必须要第二部分里用 Content-Type 说明
+
+
+
+#### 响应常见的状态码：
 2. 2xx 请求成功 200成功 201创建 202接受 203代理 206部分处理
 3. 3XX 重定向 302找到，重定向 304未修改
 4. 4xx 客户端错误 400请求内容错误 401无权限 403禁止访问 404你懂的
 5. 5xx 服务器错误 500服务器炸了 502网关炸了 503炸几分钟 504超时
 
-#### HTTP体
-* HTTP头部和HTTP体中间：一个空行 
-* HTTP体放置真正传输的内容
-
-
-#### 补充
-* 请求体的格式通常由请求头里的content-type指定，可能会很大
 
 #### 流
 * 拿到数据时(用桶打水)
@@ -144,7 +159,7 @@ app.get('/article',mw1) // 当且仅当path为'localhost:8888/article/...'时，
 
 app.post('/title',mw2) // 当且仅当path为'localhost:8888/title/...'时，且method为post时执行mw2
 ```
-5. [路由提前中断与错误处理的区别]()
+5. [路由提前中断与错误处理的区别](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/route2.js)
 
 #### 网关
 负责接收请求，并且把请求分发到处理业务的不同逻辑上去。
@@ -793,11 +808,25 @@ uncaught error in the middleware process
 * [users_errors.js]()
 
 #### 日志分级
-info：用户成功进行某项操作
+```
+const levels = { 
+  error: 0, 
+  warn: 1, 
+  info: 2, 
+  verbose: 3, 
+  debug: 4, 
+  silly: 5 
+};
+```
+注意低等级的日志文件将包含高等级错误内容，比如[]
 
 
-#### 日志处理
-Tag(方便日后搜索):是在哪一行打出来的
+#### 日志滚动(log rotation)
+随着服务的运行，日志会越来越大，如果不做管理，迟早会导致服务器磁盘被塞满
+
+#### cookie
+一种存储机制。
+服务器给客户端指定一个cookie,则客户端每一次访问服务器的对应接口时，都会把cookie提供给服务器
 
 
 

@@ -5,6 +5,8 @@
 
 const HTTPBaseError=require('../errors/http_base_error');
 
+const logger=require('../utils/loggers/logger')
+
 function handler(opts){
 
     // 返回一个中间件
@@ -14,7 +16,15 @@ function handler(opts){
         if(err instanceof HTTPBaseError){
 
             // 对应http_base_error的httpStatusCode,message,errCode,这一步通过各个子类的super实现
-            console.log(err.httpStatusCode+' '+err.message+' '+err.errCode+' '+err);
+            //console.log(err.httpStatusCode+' '+err.message+' '+err.errCode+' '+err);
+
+            const errMeta={
+                query:req.query,
+                url:req.originalUrl,
+                userInfo:req.user,
+            };
+
+            logger.error(err.message,errMeta);
 
             res.statusCode=err.httpStatusCode;
 
