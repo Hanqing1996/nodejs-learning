@@ -86,6 +86,13 @@ Transfer-Encoding: chunked
 4. 随便什么内容都可以，内容的格式必须要第二部分里用 Content-Type 说明
 
 
+#### 请求常见的Content-Type
+1. x-www-form-urlencoded
+```
+xxx=yyy
+```
+2. 
+
 
 #### 响应常见的状态码：
 2. 2xx 请求成功 200成功 201创建 202接受 203代理 206部分处理
