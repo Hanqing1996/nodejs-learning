@@ -47,53 +47,6 @@ const url=req.url; // url='/user?quan=3&people=china'
 4. OPTIONS
 > 列举可进行的操作
 
-#### 请求
-* 请求包括四部分,其中第1,2部分被称为请求头,第4部分被称为请求体
-1. 方法、路径、协议版本，使用空格分割
-```
-GET /user/info HTTP/1.1
-```
-2. 一堆键值对
-```
-Host 指明请求的地址
-Server 服务器信息
-Content-Type 请求体的格式,如 xxx/www-url-encoded-form-data application/json
-Accept: 接受的返回格式(*/* 表示接受任何格式)
-Accept-Encoding：接受的请求编码
-Accept-Language：接受的语言
-Pragma：兼容http1.0的缓存
-Cache-Control:缓存策略
-Via:走过的服务器链路信息
-Use-agent:curl/chrome
-```
-3. 回车，作用只有一个：分隔开第二部分和第四部分
-4. 随便什么内容都可以，内容的格式必须要第二部分里用 Content-Type 说明
-
-#### 响应
-* 响应包括四部分
-1. 协议/版本号 状态码 状态信息
-```
-HTTP/1.1 404 Not Found
-```
-2. 一堆 key: value，用回车分割
-```
-Content-Type: text/html;charset=utf-8
-Date: Tue, 27 Aug 2019 10:28:00 GMT
-Connection: keep-alive
-Transfer-Encoding: chunked
-```
-3. 回车，作用只有一个：分隔开第二部分和第四部分
-4. 随便什么内容都可以，内容的格式必须要第二部分里用 Content-Type 说明
-
-
-#### 请求常见的Content-Type
-1. x-www-form-urlencoded
-```
-xxx=yyy
-```
-2. 
-
-
 #### 响应常见的状态码：
 2. 2xx 请求成功 200成功 201创建 202接受 203代理 206部分处理
 3. 3XX 重定向 302找到，重定向 304未修改
