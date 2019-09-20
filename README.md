@@ -75,7 +75,7 @@ const url=req.url; // url='/user?quan=3&people=china'
 * [exports一些方法](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
 * [exports一个对象](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
 
-#### express
+#### 安装与运行what_i_love(express_demo同理，从零开始)
 * 安装
 ```
 npm i -g express-generator
@@ -84,12 +84,22 @@ npm i -g express-generator
 ```
 express --view=ejs what_i_love
 ```
+* 安装依赖(生成node-modulesw目录)
+```
+cd what_i_love
+npm install
+```
 * 启动
 ```
 node bin/www
 ```
-* 安装与运行express_demo
-初始化npm
+* 打开localhost:3030 
+> 具体端口号在bin/www文件中查看 
+```
+var port = normalizePort(process.env.PORT || '3030');
+```
+#### 安装与运行express_demo(从github上下载代码后)
+初始化npm(这一步会按照package.lock.json执行)
 ```
 npm init
 ```
@@ -780,22 +790,9 @@ const levels = {
 ```
 注意低等级的日志文件将包含高等级错误内容，比如[]
 
-
 #### 日志滚动(log rotation)
 随着服务的运行，日志会越来越大，如果不做管理，迟早会导致服务器磁盘被塞满
 
 #### cookie
 一种存储机制。
 服务器给客户端指定一个cookie,则客户端每一次访问服务器的对应接口时，都会把cookie提供给服务器
-
-
-
-
-
-
-
-
-
-
-
-
