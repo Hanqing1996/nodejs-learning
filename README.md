@@ -816,7 +816,7 @@ npm install cookie-session
 * 封装了cookie与session的[交互细节](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js).
 
 
-#### [服务器把登录信息放在内存中]()
+#### [服务器把登录信息放在内存中](https://github.com/Hanqing1996/nodejs-learning/blob/master/%E9%89%B4%E6%9D%83/cookie-session-demo/index.js)
 * 缺点:每次服务器重启后登录信息丢失
 
 
