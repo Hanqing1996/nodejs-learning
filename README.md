@@ -75,43 +75,51 @@ const url=req.url; // url='/user?quan=3&people=china'
 * [exports一些方法](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/models/mongoose/user.js)
 * [exports一个对象](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/services/mongodb_connection.js)
 
-#### 安装与运行what_i_love(express_demo同理，从零开始)
-* 安装
+#### 用express-generator创建项目(较复杂,工程用)
+* 安装express-generator(-g表示全局安装,之后再输入该指令将只显示更新信息)
 ```
+cd nodejs-learning
 npm i -g express-generator
 ```
 * 生成项目what_i_love
 ```
+cd nodejs-learning
 express --view=ejs what_i_love
 ```
-* 安装依赖(生成node-modulesw目录)
+* 安装依赖(生成node-modules目录及所需包，从github上获得的文件没有node-modules,也需要这样处理)
 ```
 cd what_i_love
 npm install
 ```
-* 启动
+* 启动服务器
 ```
 node bin/www
 ```
-* 打开localhost:3030 
-> 具体端口号在bin/www文件中查看 
+* 启动客户端(浏览器)
+打开localhost:3030 具体端口号在bin/www文件中查看 
 ```
 var port = normalizePort(process.env.PORT || '3030');
 ```
-#### 安装与运行express_demo(从github上下载代码后)
-初始化npm(这一步会按照package.lock.json执行)
+
+#### 用express-generator创建的项目文件目录
+* public:静态文件目录
+* bin/www:启动入口
+* app.js:文件配置
+* views:渲染目录
+
+#### 用express创建demo(较简单，实验用)
+* 初始化npm(这一步会生成package.json)
 ```
 npm init
 ```
-安装express
+* 安装express
 ```
 npm i --save express
 ```
-运行index.js
+* 运行index.js(自己创建哦)
 ```
 node index.js
 ```
-
 #### 中间件
 [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/express_demo/index.js)
 * 定义
@@ -136,7 +144,11 @@ app.post('/title',mw2) // 当且仅当path为'localhost:8888/title/...'时，且
 
 #### req.query与req.body的区别
 * req.query在url里，位于HTTP请求头的第一行。而req.body在body里，位于HTTP请求体中
-* 在express中req.query可以直接访问。而访问req.body需要先调body-parser
+* 在express中req.query可以直接访问
+```
+username=req.query.name;
+```
+而访问req.body需要先调body-parser
 
 #### NODE_ENV
 * 命令行输入 NODE_ENV=production node bin/www,以下错误信息不会显示
@@ -153,12 +165,6 @@ NotFoundError: Not Found
 res.locals.error = req.app.get('env') === 'development' ? err : {};
 ```
 所以当环境变量不为development时，只返回一个空对象而非err
-
-#### express文件目录
-* public:静态文件目录
-* bin/www:启动入口
-* app.js:文件配置
-* views:渲染目录
 
 #### 路由提前中断
 * [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/what_i_love/routes/route2.js)
@@ -796,3 +802,21 @@ const levels = {
 #### cookie
 一种存储机制。
 服务器给客户端指定一个cookie,则客户端每一次访问服务器的对应接口时，都会把cookie提供给服务器
+
+#### [服务器把登录信息放在内存中]()
+* 缺点:每次服务器重启后登录信息丢失
+
+#### [cookie-session]()
+> express用于管理cookie/session的中间件
+* [文档](http://www.expressjs.com.cn/en/resources/middleware/cookie-session.html)
+* 安装
+```
+npm install cookie-session
+```
+* 使用
+[app.js]()
+```
+
+```
+
+
