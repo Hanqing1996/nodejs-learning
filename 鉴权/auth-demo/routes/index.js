@@ -1,8 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-
-
 // localhost:3000/login?username=wqf
 // localhost:3000/hello
 

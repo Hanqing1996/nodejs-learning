@@ -96,7 +96,7 @@ npm install
 node bin/www
 ```
 * 启动客户端(浏览器)
-打开localhost:3030 具体端口号在bin/www文件中查看 
+localhost:3030 具体端口号在bin/www文件中查看 
 ```
 var port = normalizePort(process.env.PORT || '3030');
 ```
@@ -116,9 +116,14 @@ npm init
 ```
 npm i --save express
 ```
-* 运行index.js(自己创建哦)
+* 启动服务器:运行index.js(自己创建哦)
 ```
 node index.js
+```
+* 启动客户端(浏览器)
+localhost:3000 具体端口号在index.js文件中查看 
+```
+app.listen(3000)
 ```
 #### 中间件
 [code](https://github.com/Hanqing1996/nodejs-learning/blob/master/express_demo/index.js)
@@ -799,24 +804,21 @@ const levels = {
 #### 日志滚动(log rotation)
 随着服务的运行，日志会越来越大，如果不做管理，迟早会导致服务器磁盘被塞满
 
-#### cookie
-一种存储机制。
-服务器给客户端指定一个cookie,则客户端每一次访问服务器的对应接口时，都会把cookie提供给服务器
-
 #### [服务器把登录信息放在内存中]()
 * 缺点:每次服务器重启后登录信息丢失
 
-#### [cookie-session]()
-> express用于管理cookie/session的中间件
-* [文档](http://www.expressjs.com.cn/en/resources/middleware/cookie-session.html)
+#### [express的cookie-session中间件](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js)
 * 安装
 ```
 npm install cookie-session
 ```
-* 使用
-[app.js]()
-```
+* [文档](http://www.expressjs.com.cn/en/resources/middleware/cookie-session.html)
+* 封装了cookie与session的[交互细节](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js).
 
-```
+
+#### [服务器把登录信息放在内存中]()
+* 缺点:每次服务器重启后登录信息丢失
+
+
 
 
