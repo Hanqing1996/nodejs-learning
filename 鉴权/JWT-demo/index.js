@@ -23,12 +23,13 @@ app.get('/login', function (req, res, next) {
 app.get('/hello',function(req, res, next){
 
     const auth=req.get('Authorization');// 设置req.Authorization需在postman中进行
-    console.log(auth);
-    if(!auth||auth.indexOf('Bearer')===-1) res.end('no auth');
+    if(!auth||auth.indexOf('Bearer ')===-1) res.end('no auth');
     const token=auth.split('Bearer ')[1];
-    console.log(token);
+    console.log(`token:${token}`);
     const user=JWT.verify(token,'12345678'); 
-    res.end(user)
+    console.log(`user:${user}`);
+
+    res.end(user.toString())
 })
 
 app.listen(3000)

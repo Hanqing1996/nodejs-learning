@@ -828,7 +828,7 @@ npm i cookie-session
 签名,配合cookieSession的keys对cookie信息进行加密
 
 
-#### [express中间件:express-session]()
+#### [express中间件:express-session](https://github.com/Hanqing1996/nodejs-learning/tree/master/%E9%89%B4%E6%9D%83/session-without-cookie-demo)
 * cookie里面存的不是session，而是sessionID,session自身存在redis,mongoodb等服务器端
 * 安装
 ```
@@ -840,9 +840,13 @@ npm i express-session
 ```
 npm i jsonwebtoken
 ```
-* JWT与cookie无关，是另一套会话机制
+* 特点
+1. JWT是一种无状态的鉴权机制。将用户登录后的一些信息（比如用户Id）和过期时间等信息存储在一个加密过的字符串中,当服务器收到请求的时候，进行解密并直接使用信息
+2. JWT的组成：使用base64编码描述jwt的头部、使用base64编码的payload，以及加密签名
+3. 缺点，服务器无法像session一样方便地管理用户登录状态
 
-#### [JWT原理]()
+
+#### [JWT流程](https://github.com/Hanqing1996/nodejs-learning/blob/master/%E9%89%B4%E6%9D%83/JWT-demo/index.js)
 1. 用户登录
 ```
 // JWT对用户信息加密至token
