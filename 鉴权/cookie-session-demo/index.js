@@ -12,7 +12,7 @@ app.use(cookieSession({
 app.get('/login', function (req, res, next) {
 
   const { username } = req.query;
-  req.session.user = { username };
+  req.session.user = { username }; // 注意这里是直接给request加session,不再是像以前一样先给Response设置头部
   res.end();
 });
 

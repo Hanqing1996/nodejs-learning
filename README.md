@@ -1,3 +1,13 @@
+#### base64编码
+```
+> node
+> new Buffer('eyJ1c2VyIjp7InVzZXJuYW1lIjoiaWlpIn19=','base64').toString()
+'{"user":{"username":"iii"}}'
+```
+#### request不能 
+
+
+#### 进程
 * 查看进程
 > netstat -tln
 * lsof -i :3000
@@ -807,18 +817,44 @@ const levels = {
 #### [服务器把登录信息放在内存中]()
 * 缺点:每次服务器重启后登录信息丢失
 
-#### [express的cookie-session中间件](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js)
+#### [express中间件:cookie-session](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js)
+* 把session存储在cookie里面,即把session存在客户端
 * 安装
 ```
-npm install cookie-session
+npm i cookie-session
 ```
 * [文档](http://www.expressjs.com.cn/en/resources/middleware/cookie-session.html)
-* 封装了cookie与session的[交互细节](https://github.com/Hanqing1996/JavaScript-advance/blob/master/HTTP/session-demo/server.js).
+* sign
+签名,配合cookieSession的keys对cookie信息进行加密
 
 
-#### [服务器把登录信息放在内存中](https://github.com/Hanqing1996/nodejs-learning/blob/master/%E9%89%B4%E6%9D%83/cookie-session-demo/index.js)
-* 缺点:每次服务器重启后登录信息丢失
+#### [express中间件:express-session]()
+* cookie里面存的不是session，而是sessionID,session自身存在redis,mongoodb等服务器端
+* 安装
+```
+npm i express-session
+```
 
+#### JWT(jsonwebtoken)
+* 安装
+```
+npm i jsonwebtoken
+```
+* JWT与cookie无关，是另一套会话机制
 
-
-
+#### [JWT原理]()
+1. 用户登录
+```
+// JWT对用户信息加密至token
+const { username } = req.query;
+const user={username};
+const token=JWT.sign(user,'12345678')
+```
+2. 展示用户信息(判断用户是否已登录)
+需要设置request.Authorization=Bearer+空格+token
+```
+// JWT将token解密，获得用户信息
+const token=auth.split('Bearer ')[1];
+console.log(token);
+const user=JWT.verify(token,'12345678'); 
+```
