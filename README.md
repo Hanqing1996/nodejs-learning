@@ -4,8 +4,15 @@
 > new Buffer('eyJ1c2VyIjp7InVzZXJuYW1lIjoiaWlpIn19=','base64').toString()
 '{"user":{"username":"iii"}}'
 ```
-#### request不能 
-
+#### 安装cheerio报错
+* npm ERR
+```
+Unexpected end of JSON input while parsing near '...fs6SdZXSsc4O+RBAY3oX7'
+```
+* 解决方法
+```
+npm cache clean --force
+```
 
 #### 进程
 * 查看进程
