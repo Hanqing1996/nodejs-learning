@@ -1,3 +1,9 @@
+#### node-dev
+node server.js 后修改 server.js 不必重启
+```
+yarn global add node-dev
+```
+
 #### base64编码
 ```
 > node
