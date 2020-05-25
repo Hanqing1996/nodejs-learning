@@ -552,7 +552,7 @@ db.users.update({name:'jojo'},{$set:{age:100}},{multi:true})
 
 #### mongodb的主键
 * id设置方式 
-MongoDB中的主键id以时间戳为基础，以进程编号，服务器名称为后缀，以此保证新数据填入时一定有一个独一无二的标识，从而免去与"用户注册表"的主键查询交互。
+MongoDB中的主键id以时间戳为基础，以进程编号，服务器名称为后缀，以此保证新数据填入时一定有一个独一无二的标识，从而免去分布式数据库架构下，与"用户注册表"的主键查询交互。
 * 新生成一个id
 ```
 var id=ObjectId()
@@ -561,6 +561,14 @@ var id=ObjectId()
 ```
 id.getTimestamp()
 ```
+
+#### PostgresQL的主键
+> 同理也是为了解决分布式数据库下主键自增的弊端
+```
+const uuid=require('uuid/v4')
+```
+
+
 #### mongoeb的表不需要设置空值，且每个记录的字段情况都可以不同
 比如
 ```
