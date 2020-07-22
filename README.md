@@ -886,3 +886,7 @@ const token=auth.split('Bearer ')[1];
 console.log(token);
 const user=JWT.verify(token,'12345678'); 
 ```
+---
+
+
+
